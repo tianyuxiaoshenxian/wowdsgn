@@ -1,0 +1,15 @@
+server:
+  port: 8088
+  tomcat:
+    uri-encoding: UTF-8
+  compression:
+    enabled: true
+    mime-types: text/html,text/css,application/json
+
+logging:
+  config: classpath:config/logback.xml
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai

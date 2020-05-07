@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neusoft.demo.mapper.RegisterNumberMapper">
+
+
+    <!--注册用户-->
+    <insert id="setNumber">
+        insert into USER_DTL(
+            USER_NAME,
+            WECHAT_ID,
+            CREATE_TIME
+        )
+        values(
+
+        #{wechatId},
+        now()
+        )
+    </insert>
+    <select id="getRegisterNum" resultMap="MEmpDtlMap" parameterType="edu.neusoft.demo.entity.RegisterNumber">
+        SELECT
+        ID,
+        RG_NUMBER,
+        WECHAT_ID,
+        CREATE_TIME,
+        date_add(now(), INTERVAL (0) hour) AS CURRENTTIME
+        FROM register_number
+        where ID != ""
+        ORDER BY ID
+    </select>
+
+    <select id="setRegisterNum" resultMap="MEmpDtlMap" parameterType="edu.neusoft.demo.entity.RegisterNumber">
+        SELECT
+        ID,
+        RG_NUMBER,
+        WECHAT_ID,
+        CREATE_TIME,
+        date_add(now(), INTERVAL (0) hour) AS CURRENTTIME
+        FROM register_number
+        where ID != ""
+        ORDER BY ID
+    </select>
+
+    <resultMap id="MEmpDtlMap"  type="edu.neusoft.demo.entity.RegisterNumber">
+        <result property="rgNumber" column="RG_NUMBER" />
+        <result property="weChatId" column="WECHAT_ID" />
+        <result property="id" column="ID" />
+        <result property="createTime" column="CREATE_TIME" />
+    </resultMap>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.neusoft.demo.mapper.UserMapper">
+
+
+    <!--注册用户-->
+    <insert id="setUser">
+        insert into USER_DTL(
+            USER_NAME,
+            CREATE_TIME,
+            PHONE
+        )
+        values(
+        #{userName},
+        now(),
+        #{phone}
+        )
+    </insert>
+
+    <select id="getUser" resultMap="getUser" parameterType="edu.neusoft.demo.entity.User">
+        select
+        USER_NAME,
+        PHONE
+        from
+        USER_DTL
+        WHERE
+        USER_NAME = #{userName}
+        and
+        PHONE = #{phone}
+    </select>
+
+    <resultMap id="getUser"  type="edu.neusoft.demo.entity.User">
+        <result property="userId" column="USER_ID" />
+        <result property="wechatId" column="WECHAT_ID" />
+        <result property="userName" column="USER_NAME" />
+        <result property="phone" column="PHONE" />
+        <result property="role" column="ROLE" />
+        <result property="createTime" column="CREATE_TIME"/>
+
+    </resultMap>
+</mapper>
