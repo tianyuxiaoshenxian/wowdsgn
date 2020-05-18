@@ -1,20 +1,13 @@
 package edu.neusoft.demo.controller;
 
-import com.google.gson.internal.$Gson$Preconditions;
 import edu.neusoft.demo.common.util.Result;
 import edu.neusoft.demo.entity.RegisterNumber;
-
-import edu.neusoft.demo.entity.User;
 import edu.neusoft.demo.service.RegisterNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
 
 //@RestController进行标记这是一个Controller
 @RestController
@@ -36,13 +29,15 @@ public class RegisterNumberController {
     public ResponseEntity<Result> getUser(@RequestBody RegisterNumber registerNumber){
         Result res = new Result(200, "ok",null);
 
+
         try{
-            List<RegisterNumber> result  =   registerNumberService.setRegisterNum( registerNumber);
-            if (result == null){
-                res.setResultMsg("登录失败,请先注册");
+            RegisterNumber result  =   registerNumberService.setRegisterNum( registerNumber);
+
+            if (result.getRgNumber() == 0){
+                res.setResultMsg("预约失败,请先注册");
                 res.setMessage("no");
             } else {
-                res.setResultMsg("登录成功");
+                res.setResultMsg("预约成功");
                 res.putData("result",result);
                 res.setMessage("ok");
             }
@@ -72,12 +67,9 @@ public class RegisterNumberController {
             return new ResponseEntity<Result>(res, HttpStatus.BAD_REQUEST);
         }
         try{
-            List<RegisterNumber> result = registerNumberService.getRegisterNum();
-            String CURRENTTIME = registerNumberService.getCURRENTTIME();
+            int result = registerNumberService.getRegisterNum();
             // 把结果数据放进封装类
-            res.putData("result", result);
-            res.putData("RegNum", result.size());
-            res.putData("CURRENTTIME", CURRENTTIME);
+            res.putData("RegNum", result);
         }
         catch ( IncompatibleClassChangeError error ){
             res.setMessage("请求失败,请检查网络");
@@ -88,4 +80,6 @@ public class RegisterNumberController {
         return ResponseEntity.ok(res);
 
     }
+
+
 }

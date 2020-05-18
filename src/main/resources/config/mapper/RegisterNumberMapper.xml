@@ -4,46 +4,105 @@
 
 
     <!--注册用户-->
-    <insert id="setNumber">
-        insert into USER_DTL(
+    <insert id="setRegisterNum" >
+        insert into register_number(
             USER_NAME,
-            WECHAT_ID,
+
+            REG_NUMBER,
             CREATE_TIME
         )
         values(
+            #{userName},
 
-        #{wechatId},
-        now()
+            #{rgNumber},
+            now()
         )
     </insert>
+
+
+    <select id="getMaxRgNum" resultType="Integer" >
+
+
+            select
+            IFNULL ( max(REG_NUMBER),0) AS 'maxRegNum'
+            from
+            register_number
+            where
+            ID != ""
+            AND
+                #{endDate}  >= CREATE_TIME
+
+            and
+                CREATE_TIME >=    #{startDate}
+
+
+
+
+    </select>
+
+
     <select id="getRegisterNum" resultMap="MEmpDtlMap" parameterType="edu.neusoft.demo.entity.RegisterNumber">
         SELECT
-        ID,
-        RG_NUMBER,
-        WECHAT_ID,
-        CREATE_TIME,
-        date_add(now(), INTERVAL (0) hour) AS CURRENTTIME
+        *
         FROM register_number
-        where ID != ""
-        ORDER BY ID
+        where
+        ID !=""
+        and
+
+        <if test="endDate != null or endDate !='' ">
+            #{endDate}  >= CREATE_TIME
+        </if>
+
+        and
+        <if test="startDate != null or startDate !='' ">
+            CREATE_TIME >=    #{startDate}
+        </if>
+        ORDER BY REG_NUMBER
     </select>
 
-    <select id="setRegisterNum" resultMap="MEmpDtlMap" parameterType="edu.neusoft.demo.entity.RegisterNumber">
+    <select id="getUserRegInfo" resultMap="MEmpDtlMap" parameterType="edu.neusoft.demo.entity.RegisterNumber">
         SELECT
-        ID,
-        RG_NUMBER,
-        WECHAT_ID,
-        CREATE_TIME,
-        date_add(now(), INTERVAL (0) hour) AS CURRENTTIME
-        FROM register_number
-        where ID != ""
-        ORDER BY ID
+        *
+        FROM
+        register_number
+        where
+        CREATE_TIME = (
+            select
+                max(CREATE_TIME)
+                from register_number
+                where
+                ID !=""
+                and
+                <if test="userName != null or userName !='' ">
+                    USER_NAME =  #{userName}
+                </if>
+
+                and
+                <if test="endDate != null or endDate !='' ">
+                    #{endDate}  >= CREATE_TIME
+                </if>
+
+                and
+                <if test="startDate != null or startDate !='' ">
+                    CREATE_TIME >=    #{startDate}
+                </if>
+            )
+
+
     </select>
+
+    <resultMap id="MaxRgNum"   type="edu.neusoft.demo.entity.RegisterNumber">
+        <result property="maxRgNumber" column="REG_NUMBER" />
+        <result property="rgNumber" column="REG_NUMBER" />
+    </resultMap>
+
+
 
     <resultMap id="MEmpDtlMap"  type="edu.neusoft.demo.entity.RegisterNumber">
-        <result property="rgNumber" column="RG_NUMBER" />
-        <result property="weChatId" column="WECHAT_ID" />
         <result property="id" column="ID" />
+        <result property="userName" column="USER_NAME" />
+        <result property="rgNumber" column="REG_NUMBER" />
         <result property="createTime" column="CREATE_TIME" />
+        <result property="timeType" column="TIME_TYPE" />
     </resultMap>
 </mapper>

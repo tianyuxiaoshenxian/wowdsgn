@@ -7,7 +7,6 @@ public class User {
 
     private String userName;
 
-    private String wechatId;
 
     private String phone;
 
@@ -25,13 +24,6 @@ public class User {
         this.userName = userName;
     }
 
-    public String getWechatId() {
-        return wechatId;
-    }
-
-    public void setWechatId(String wechatId) {
-        this.wechatId = wechatId;
-    }
 
     public String getPhone() {
         return phone;

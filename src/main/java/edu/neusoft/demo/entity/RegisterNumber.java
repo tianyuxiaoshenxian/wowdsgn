@@ -9,11 +9,24 @@ public class RegisterNumber {
 
     private int rgNumber;
 
-    private String currenttime;
+    private int maxRgNumber;
+
+    public static int onlineRgNumber = 0;
+
+    private String currentTime;
 
     private Date createTime;
 
-    private String weChatId;
+
+    private String userName;
+
+    public int getMaxRgNumber() {
+        return maxRgNumber;
+    }
+
+    public void setMaxRgNumber(int maxRgNumber) {
+        this.maxRgNumber = maxRgNumber;
+    }
 
     public int getId() {
         return id;
@@ -31,12 +44,20 @@ public class RegisterNumber {
         this.rgNumber = rgNumber;
     }
 
-    public String getCurrenttime() {
-        return currenttime;
+    public static int getOnlineRgNumber() {
+        return onlineRgNumber;
     }
 
-    public void setCurrenttime(String currenttime) {
-        this.currenttime = currenttime;
+    public static void setOnlineRgNumber(int onlineRgNumber) {
+        RegisterNumber.onlineRgNumber = onlineRgNumber;
+    }
+
+    public String getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(String currentTime) {
+        this.currentTime = currentTime;
     }
 
     public Date getCreateTime() {
@@ -47,11 +68,12 @@ public class RegisterNumber {
         this.createTime = createTime;
     }
 
-    public String getWechatId() {
-        return weChatId;
+
+    public String getUserName() {
+        return userName;
     }
 
-    public void setWechatId(String wechatId) {
-        this.weChatId = wechatId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

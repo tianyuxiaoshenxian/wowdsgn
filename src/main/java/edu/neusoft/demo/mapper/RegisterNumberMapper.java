@@ -5,6 +5,7 @@ import edu.neusoft.demo.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -14,9 +15,11 @@ import java.util.List;
 public interface RegisterNumberMapper {
 
 
-    public List<RegisterNumber> getRegisterNum();
+    public List<RegisterNumber>  getRegisterNum(String startDate, String endDate);
 
-    public  List<RegisterNumber> setRegisterNum(RegisterNumber registerNumber);
+    public  RegisterNumber getUserRegInfo(String userName,String startDate, String endDate);
 
+    public  int setRegisterNum(RegisterNumber registerNumber);
 
+    public  int getMaxRgNum( String startDate, String endDate);
 }

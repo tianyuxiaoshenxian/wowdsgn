@@ -31,7 +31,6 @@
 
     <resultMap id="getUser"  type="edu.neusoft.demo.entity.User">
         <result property="userId" column="USER_ID" />
-        <result property="wechatId" column="WECHAT_ID" />
         <result property="userName" column="USER_NAME" />
         <result property="phone" column="PHONE" />
         <result property="role" column="ROLE" />

@@ -1,7 +1,9 @@
 package edu.neusoft.demo.controller;
 
+import edu.neusoft.demo.service.RegisterNumberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -41,6 +43,8 @@ public class WebsocketController {
      */
     private Session session;
 
+    @Autowired
+    private RegisterNumberService registerNumberService;
     /**
      * TODO: 连接建立成功调用的方法
      *
@@ -89,9 +93,12 @@ public class WebsocketController {
         /**
          * 回复此客户端
          */
+        String resultRegNum ="";
 
         try {
-            this.sendMessage(session, message);
+            resultRegNum =  registerNumberService.getRegisterNum() + "";
+
+            this.sendMessage(session, resultRegNum);
         } catch (IOException e) {
             e.printStackTrace();
         }

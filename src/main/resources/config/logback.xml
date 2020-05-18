@@ -34,4 +34,5 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FIXED_FILE" />
     </root>
+
 </configuration>
