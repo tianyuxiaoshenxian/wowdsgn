@@ -17,11 +17,13 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * TODO:后台管理系统的推送
  */
 @ServerEndpoint(value = "/websocket/manager")
+
 @Component
 public class WebsocketController {
     /**
      * log4j日志
      */
+
     private static final Logger log = LoggerFactory.getLogger(WebsocketController.class);
 
     /**
@@ -43,8 +45,7 @@ public class WebsocketController {
      */
     private Session session;
 
-    @Autowired
-    private RegisterNumberService registerNumberService;
+
     /**
      * TODO: 连接建立成功调用的方法
      *
@@ -87,18 +88,17 @@ public class WebsocketController {
      * @time 2018/12/4 16:36
      * @params
      */
+
     @OnMessage
     public void onMessage(Session session, String message) {
         log.info("来自客户端的消息:" + message);
         /**
          * 回复此客户端
          */
-        String resultRegNum ="";
 
         try {
-            resultRegNum =  registerNumberService.getRegisterNum() + "";
-
-            this.sendMessage(session, resultRegNum);
+            this.sendInfo(message);
+            this.sendMessage(session, message);
         } catch (IOException e) {
             e.printStackTrace();
         }
