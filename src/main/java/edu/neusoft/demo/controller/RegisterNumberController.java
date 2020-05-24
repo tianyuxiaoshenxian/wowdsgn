@@ -68,8 +68,10 @@ public class RegisterNumberController {
         }
         try{
             int result = registerNumberService.getRegisterNum();
+            String currentTime = registerNumberService.getCurrentTime();
             // 把结果数据放进封装类
             res.putData("RegNum", result);
+            res.putData("currentTime", currentTime);
         }
         catch ( IncompatibleClassChangeError error ){
             res.setMessage("请求失败,请检查网络");

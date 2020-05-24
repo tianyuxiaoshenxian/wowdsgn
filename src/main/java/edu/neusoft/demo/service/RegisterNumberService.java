@@ -10,7 +10,7 @@ public interface RegisterNumberService {
 //    public int getRegisterNum();
 
 //    List<RegisterNumber> getRegisterNum(RegisterNumber registerNumber);
-    public  String getCURRENTTIME();
+    public  String getCurrentTime();
 
     public int getRegisterNum();
 

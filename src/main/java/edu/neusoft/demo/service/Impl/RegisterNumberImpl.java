@@ -71,7 +71,7 @@ public  class RegisterNumberImpl  implements RegisterNumberService {
         return result;
     }
 
-    public  String getCURRENTTIME(){
+    public  String getCurrentTime(){
 
         Date date=new Date();
         System.out.println("当前的日期是------>"+date);
