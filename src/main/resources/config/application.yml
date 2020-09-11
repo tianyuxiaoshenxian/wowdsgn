@@ -5,7 +5,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/medical_registration_app?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true
     username: root
-    password: psd123456
+    password: 123456
     driverClassName: com.mysql.cj.jdbc.Driver
 
     validationQuery: select 'x'

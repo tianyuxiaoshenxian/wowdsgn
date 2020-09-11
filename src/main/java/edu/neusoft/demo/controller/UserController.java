@@ -4,6 +4,7 @@ import edu.neusoft.demo.common.util.Result;
 import edu.neusoft.demo.entity.RegisterNumber;
 import edu.neusoft.demo.entity.User;
 import edu.neusoft.demo.service.UserService;
+import edu.neusoft.demo.token.TokenSign;
 import feign.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -73,12 +74,14 @@ public class UserController {
 
         try{
             User result =   userService.getUser(userInfo);
+
             if (result == null){
                 res.setResultMsg("登录失败,请先注册");
                 res.setMessage("no");
             } else {
                 res.setResultMsg("登录成功");
                 res.putData("result",result);
+                res.putData("token",TokenSign.sign(result.getUserName(),result.getUserId()+""));
                 res.setMessage("ok");
             }
 
